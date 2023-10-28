@@ -17,6 +17,15 @@ public function index()
 }
 
 }
+function create()
+    {
+        return view('main.blade');
+    }
+
+    function edit(Quiz $quiz)
+    {
+        return view('main.blade', compact('quiz'));
+    }
 function index()
 {
     $quizzes = Quiz::all();
