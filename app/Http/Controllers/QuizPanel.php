@@ -23,3 +23,20 @@ function index()
 
     return view('welcome', compact('quizzes'));
 }
+function storeOrUpdate(Request $request, $id = null)
+{
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'description' => 'nullable',
+    ]);
+    if ($id) {
+        $quiz = Quiz::findOrFail($id);
+        $quiz->update($validatedData);
+        $message = 'Quiz updated successfully.';
+    } else {
+        $quiz = Quiz::create($validatedData);
+        $message = 'Quiz created successfully.';
+    }
+
+    return redirect()->route('quizzes.index')->with('message', $message);
+}
